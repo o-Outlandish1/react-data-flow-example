@@ -19,3 +19,18 @@ main {
   padding: 3em;
   font-size: x-large;
 }
+
+.todo {
+  margin: 0.5em 0;
+  border-bottom: 1px dotted #ccc;
+  padding: 0.5em;
+}
+
+.todo input[type=checkbox] {
+  margin-right: 1em;
+}
+
+.todo.completed {
+  color: #333;
+  text-decoration: line-through;
+}
