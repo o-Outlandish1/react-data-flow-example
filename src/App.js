@@ -31,9 +31,22 @@ class App extends Component {
   render() {
     const actions = {
       updateTodoCompleted: (todoId, isCompleted) => {
-        const idx = this.state.todos.findIndex(todo => todoId === todo.id);
-        this.state.todos[idx].isCompleted = isCompleted;
-        this.setState({});
+        // Keep it all immutable ftw (not required for React to work)
+        // (my Twitter handle is @immutabill for a reason)
+        const { todos } = this.state;
+        const idx = todos.findIndex(todo => todo.id === todoId);
+        const todo = todos[idx];
+        const updatedTodo = {
+          ...todo,
+          isCompleted
+        };
+        const updatedTodos = [
+          ...todos.slice(0, idx),
+          updatedTodo,
+          ...todos.slice(idx + 1)
+        ];
+        // Calling .setState **is required** for React to know it needs to update
+        this.setState({ todos: updatedTodos });
       }
     };
     return <TodoList todos={this.state.todos} actions={actions} />;
