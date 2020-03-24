@@ -1,21 +1,24 @@
 import React, { Component } from "react";
-import Todo from "./Todo";
-class TodoList extends Component {
+class Todo extends Component {
   render() {
-    const { todos, actions } = this.props;
+    const classes = ["todo"];
+    const { id, isCompleted, text } = this.props.todo;
+    if (isCompleted) {
+      classes.push("completed");
+    }
+    const onToggle = () => {
+      const newValue = !isCompleted;
+      this.props.updateTodoCompleted(id, newValue);
+    };
     return (
-      <div>
-        <h3>TODOs ({todos.length})</h3>
-        {this.props.todos.map(todo => (
-          <Todo
-            key={todo.id}
-            todo={todo}
-            updateTodoCompleted={actions.updateTodoCompleted}
-          />
-        ))}
+      <div className={classes.join(" ")}>
+        <label>
+          <input type="checkbox" checked={isCompleted} onChange={onToggle} />
+          {text}
+        </label>
       </div>
     );
   }
 }
 
-export default TodoList;
+export default Todo;
